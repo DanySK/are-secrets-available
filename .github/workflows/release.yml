@@ -1,0 +1,36 @@
+name: Release
+on:
+  push:
+    branches:
+      - 'master'
+  pull_request:
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [ windows, macos, ubuntu ]
+        custom_token: [ true, false ]
+    runs-on: ${{ matrix.os }}-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.3.0
+      - name: Run
+        id: test
+        uses: ./
+      - name: Check that the output makes sense
+        run: '[ -n "${{ steps.test.outputs.has-secrets }}" ]'
+  release:
+    needs:
+      - test
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.3.0
+      - name: Install Semantic Release
+        run: npm install
+      - name: Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release

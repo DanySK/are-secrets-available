@@ -1,0 +1,26 @@
+name: 'Verify if secrets are available'
+description: 'Returns whether secrets are available for this build.'
+
+# inputs:
+#   secrets:
+#     description: "Object with secrets"
+
+outputs:
+  has-secrets:
+    description: "Whether the project has access to secrets (besides GITHUB_TOKEN)"
+    value: ${{ steps.check-secrets.outputs.has-secrets }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Verify if secrets are available
+      shell: bash
+      id: check-secrets
+      run: |
+        echo has-secrets="$(
+          if [ "$(echo '${{ toJson(secrets) }}' | jq length)" -gt "1" ]; then
+            echo true;
+          else
+            echo false;
+          fi
+        )" >> "$GITHUB_OUTPUT"
