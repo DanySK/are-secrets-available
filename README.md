@@ -2,6 +2,8 @@
 A composite action that checks if secrets are available on a workflow run.
 Returns true if there are more secrets available than just github_token.
 
+## Usage
+
 Use as follows:
 
 ```yaml
