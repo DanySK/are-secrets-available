@@ -20,6 +20,7 @@ jobs:
         with:
           secrets: ${{ toJson(secrets) }}
       - name: Check that the output makes sense
+        shell: bash
         run: '[ -n "${{ steps.test.outputs.has-secrets }}" ]'
   release:
     needs:
