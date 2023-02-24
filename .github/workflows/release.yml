@@ -10,7 +10,6 @@ jobs:
     strategy:
       matrix:
         os: [ windows, macos, ubuntu ]
-        custom_token: [ true, false ]
     runs-on: ${{ matrix.os }}-latest
     steps:
       - name: Checkout
