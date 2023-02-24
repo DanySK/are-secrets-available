@@ -19,7 +19,7 @@ runs:
       id: check-secrets
       run: |
         echo has-secrets="$(
-          if [ "$(echo '${{ toJson(inputs.secrets) }}' | jq length)" -gt "1" ]; then
+          if [ "$(echo '${{ inputs.secrets }}' | jq length)" -gt "1" ]; then
             echo true;
           else
             echo false;

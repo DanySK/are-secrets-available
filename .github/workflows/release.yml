@@ -18,7 +18,7 @@ jobs:
         id: test
         uses: ./
         with:
-          secrets: ${{ fromJson(secrets) }}
+          secrets: ${{ toJson(secrets) }}
       - name: Check that the output makes sense
         run: '[ -n "${{ steps.test.outputs.has-secrets }}" ]'
   release:
