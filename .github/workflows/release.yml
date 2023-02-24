@@ -18,10 +18,10 @@ jobs:
       - name: Run
         id: test
         uses: ./
-      - name: Check that the output makes sense
-        run: '[ -n "${{ steps.test.outputs.has-secrets }}" ]'
         with:
           secrets: ${{ secrets }}
+      - name: Check that the output makes sense
+        run: '[ -n "${{ steps.test.outputs.has-secrets }}" ]'
   release:
     needs:
       - test
