@@ -4,12 +4,12 @@ description: 'Returns whether secrets are available for this build.'
 inputs:
   secrets:
     description: "Object with secrets"
+    required: true
 
 outputs:
   has-secrets:
     description: "Whether the project has access to secrets (besides GITHUB_TOKEN)"
     value: ${{ steps.check-secrets.outputs.has-secrets }}
-    required: true
 
 runs:
   using: "composite"
