@@ -14,10 +14,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3.3.0
       - name: Find if secrets are available
+        id: secrets
         uses: DanySK/are-secrets-available@<select a valid ref here>
         with:
           secrets: ${{ toJson(secrets) }}
       - name: Runs only if there are secrets
-        if: steps.test.outputs.has-secrets
+        if: steps.secrets.outputs.has-secrets
         run: echo there are secrets.
 ```
